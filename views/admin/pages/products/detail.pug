@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug 
+
+block main
+  h1.mb-4 Chi tiết sản phẩm
+
+  #product-detail-page
+    .product-detail-wrapper
+
+      .detail-header
+        h5.mb-0= product.title
+
+        if product.status === 'active'
+          span.badge.bg-success Hoạt động
+        else
+          span.badge.bg-secondary Dừng hoạt động
+
+      .detail-body
+        .detail-image
+          img(src=product.thumbnail alt=product.title)
+
+        .detail-info
+          .info-row
+            span.label Mô tả:
+            span.value= product.description
+
+          .info-row
+            span.label Giá:
+            span.value #{product.price.toLocaleString()} đ
+
+          .info-row
+            span.label Giảm giá:
+            span.value #{product.discountPercentage} %
+
+          .info-row
+            span.label Số lượng:
+            span.value= product.stock
+
+          .info-row
+            span.label Vị trí:
+            span.value= product.position
+
+          .info-row
+            span.label Trạng thái:
+            if product.status === 'active'
+              span.text-success Hoạt động
+            else
+              span.text-danger Dừng hoạt động
+
+      .detail-actions.mt-4
+        a.btn.btn-warning(href=`${prefixAdmin}/products/edit/${product.id}`) Chỉnh sửa
+        a.btn.btn-secondary.ms-2(href=`${prefixAdmin}/products`) Quay lại
+      
+  script(src="/admin/js/product.js")

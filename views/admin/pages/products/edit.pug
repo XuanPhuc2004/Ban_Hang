@@ -1,0 +1,117 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Chỉnh sửa sản phẩm
+
+  #edit-product-page
+    .form-edit-wrapper
+
+      .edit-header
+        h5.mb-0 Thông tin sản phẩm
+        span.badge.bg-warning.text-dark Đang chỉnh sửa
+
+      form(
+        action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
+        method="POST"
+        id="form-edit-product"
+        enctype="multipart/form-data"
+      )
+
+        .form-group
+          label(for="title") Tiêu đề
+          input.form-control(
+            type="text"
+            id="title"
+            name="title"
+            required
+            value=product.title
+          )
+
+        .form-group
+          label(for="desc") Mô tả
+          textarea.form-control(
+            id="desc"
+            name="description"
+            rows="5"
+          ) #{product.description}
+
+        .form-group
+          label(for="price") Giá
+          input.form-control(
+            type="number"
+            id="price"
+            name="price"
+            value=product.price
+            min="0"
+          )
+
+        .form-group
+          label(for="discount") % Giảm giá
+          input.form-control(
+            type="number"
+            id="discount"
+            name="discountPercentage"
+            value=product.discountPercentage
+            min="0"
+          )
+
+        .form-group
+          label(for="stock") Số lượng
+          input.form-control(
+            type="number"
+            id="stock"
+            name="stock"
+            value=product.stock
+            min="0"
+          )
+
+        .form-group(upload-image)
+          label(for="thumbnail") Ảnh
+
+          input.form-control-file(
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            accept="image/*"
+            upload-image-input
+          )
+
+          img.image-preview(
+            src=product.thumbnail
+            upload-image-preview
+          )
+
+        .form-group
+          label(for="position") Vị trí
+          input.form-control(
+            type="number"
+            id="position"
+            name="position"
+            min="1"
+            value=product.position
+          )
+
+        .form-group.status-group
+          .form-check.form-check-inline
+            input.form-check-input(
+              type="radio"
+              id="statusActive"
+              name="status"
+              value="active"
+              checked=product.status === 'active'
+            )
+            label.form-check-label(for="statusActive") Hoạt động
+
+          .form-check.form-check-inline
+            input.form-check-input(
+              type="radio"
+              id="statusInActive"
+              name="status"
+              value="inactive"
+              checked=product.status === 'inactive'
+            )
+            label.form-check-label(for="statusInActive") Dừng hoạt động
+
+        .form-actions.mt-4
+          button.btn.btn-warning(type="submit") Cập nhật
+          a.btn.btn-secondary.ms-2(href=`${prefixAdmin}/products`) Quay lại
