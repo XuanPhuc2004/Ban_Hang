@@ -1,0 +1,34 @@
+extends ../../layouts/default.pug
+block main
+
+  h1(class="mb-4") Danh mục sản phẩm
+
+  .cart.mb-3 
+    .card-header Danh sách
+    .card-body 
+      .row         
+        .col-6
+        .col-4 
+          a(
+            href=`${prefixAdmin}/products-category/create`
+            class="btn btn-outline-success"
+          ) + Thêm mới
+
+          
+
+
+  script(src="/admin/js/product.js") 
+
+//- danh mục có những gì
+  _id
+  title 
+  parent_id
+  description 
+  thumbnail 
+  status 
+  position
+  deleted
+  deletedAt
+  createAt
+  updateAt
+  slug

@@ -1,0 +1,120 @@
+extends ../../layouts/default.pug
+
+block main
+
+  h1(class="mb-4") Thêm mới danh mục sản phẩm
+  div(class="card shadow-sm")
+    div(class="card-body")
+      form(
+        action=`${prefixAdmin}/products-category/create`
+        method="POST"
+        enctype="multipart/form-data"
+      )
+        // ===== TITLE =====
+        div(class="mb-3")
+          label(for="title" class="form-label fw-bold") Tiêu đề
+          input(
+            type="text"
+            id="title"
+            name="title"
+            class="form-control"
+            required
+            placeholder="Ví dụ: Điện thoại"
+          )
+        // ===== PARENT =====
+        div(class="mb-3")
+          label(for="parent_id" class="form-label fw-bold") Danh mục cha
+          input(
+            type="text"
+            id="parent_id"
+            name="parent_id"
+            class="form-select"
+            required
+          )
+        // ===== DESCRIPTION =====
+        div(class="mb-3")
+          label(for="desc" class="form-label fw-bold") Mô tả
+          textarea(
+            id="desc"
+            name="description"
+            class="form-control textarea-mce"
+            rows="5"
+          )
+
+        // ===== THUMBNAIL =====
+        div(class="mb-3"
+          upload-image
+        )
+          label(for="thumbnail" class="form-label fw-bold") Ảnh đại diện
+
+          input(
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            class="form-control-file"
+            accept="image/*"
+            upload-image-input
+          )
+          img(
+            src=""
+            upload-image-preview
+            class="image-preview mt-3"
+          )
+
+
+        // ===== POSITION =====
+        div(class="mb-3")
+          label(for="position" class="form-label fw-bold") Vị trí
+
+          input(
+            type="number"
+            id="position"
+            name="position"
+            class="form-control"
+            min="1"
+            placeholder="Tự động tăng"
+          )
+
+        // ===== STATUS =====
+        div(class="mb-3")
+          label(class="form-label fw-bold d-block") Trạng thái
+          div(class="form-check form-check-inline")
+            input(
+              type="radio"
+              id="statusActive"
+              name="status"
+              value="active"
+              class="form-check-input"
+              checked
+            )
+            label(
+              for="statusActive"
+              class="form-check-label"
+            ) Hoạt động
+
+          div(class="form-check form-check-inline")
+            input(
+              type="radio"
+              id="statusInactive"
+              name="status"
+              value="inactive"
+              class="form-check-input"
+            )
+            label(
+              for="statusInactive"
+              class="form-check-label"
+            ) Dừng hoạt động
+
+        // ===== SUBMIT =====
+        div(class="mt-4")
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Tạo danh mục
+
+          a(
+            href=`${prefixAdmin}/products-category`
+            class="btn btn-outline-secondary ms-2"
+          ) Quay lại
+  script(src="/admin/js/product.js") 
+

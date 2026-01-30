@@ -3,6 +3,7 @@ include ../../mixins/filterstatus.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/formchangemulti.pug
+include ../../mixins/sort.pug
 
 block main
 
@@ -15,16 +16,21 @@ block main
         .col-6
           +filter-status(filterStatus)
           //- form search 
+          
         .col-6
           +search(keyword)
         +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+        
         .col-4 
           a(
             href=`${prefixAdmin}/products/create`
             class="btn btn-outline-success"
-          ) + Thêm mới 
-        
-  
+          ) + Thêm mới
+
+          
+        // ===== SORT =====
+    +sort()   
+    
   table(class="table table-bordered table-hover"
   checkbox-multi)
     thead(class="table-dark")
