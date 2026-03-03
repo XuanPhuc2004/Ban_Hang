@@ -1,0 +1,41 @@
+extends ../../layouts/default.pug
+
+block main
+  if(role.permissions.includes("roles_create"))
+    h1.mb-4 Thêm mới nhóm quyền
+
+    .card
+      .card-header Thông tin nhóm quyền
+      .card-body
+        form(
+          method="POST"
+          action=`${prefixAdmin}/roles/create`
+        )
+
+          // ===== TÊN NHÓM QUYỀN =====
+          .mb-3
+            label.form-label.fw-bold(for="title") Tên nhóm quyền
+            input.form-control(
+              type="text"
+              id="title"
+              name="title"
+              required
+            )
+
+          // ===== MÔ TẢ =====
+          .mb-3
+            label.form-label.fw-bold(for="description") Mô tả ngắn
+            textarea(
+              class="form-control textarea-mce"
+              id="desc"
+              name="description"
+              rows="3"
+              placeholder="Mô tả ngắn về nhóm quyền"
+            )
+
+          // ===== ACTION =====
+          .mt-4
+            button.btn.btn-success(type="submit") Lưu nhóm quyền
+            a.btn.btn-outline-secondary.ms-2(
+              href=`${prefixAdmin}/roles`
+            ) Quay lại

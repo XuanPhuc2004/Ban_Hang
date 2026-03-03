@@ -198,3 +198,18 @@ if(sort) {
   }
 }
 //  end sort 
+
+// delteRole
+const deleteButtons = document.querySelectorAll(".btn-delete-role");
+  const deleteForm = document.getElementById("form-delete-role");
+
+  deleteButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const id = button.getAttribute("data-id");
+
+      if (confirm("Bạn có chắc muốn xóa nhóm quyền này không?")) {
+        deleteForm.action = `/admin/roles/delete/${id}?_method=DELETE`;
+        deleteForm.submit();
+      }
+    });
+  });

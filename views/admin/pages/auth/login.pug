@@ -1,0 +1,47 @@
+extends ../../layouts/auth.pug
+
+block main
+  .row.justify-content-center.mt-5
+    .col-md-5
+      .card.shadow
+        .card-header.text-center.fw-bold Đăng nhập hệ thống
+        .card-body
+          form(
+            action=`${prefixAdmin}/auth/login`
+            method="POST"
+          )
+            // Email
+            .mb-3
+              label.form-label Email
+              input.form-control(
+                type="email"
+                name="email"
+                required
+                placeholder="Nhập email"
+              )
+
+            // Password
+            .mb-3
+              label.form-label Mật khẩu
+              input.form-control(
+                type="password"
+                name="password"
+                required
+                placeholder="••••••••"
+              )
+
+            // Remember me
+            .mb-3.form-check
+              input.form-check-input(
+                type="checkbox"
+                name="remember"
+                id="remember"
+              )
+              label.form-check-label(for="remember") Ghi nhớ đăng nhập
+
+            // Error message
+            if error
+              .alert.alert-danger.mt-2 #{error}
+
+            // Submit
+            button.btn.btn-primary.w-100(type="submit") Đăng nhập

@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Chi tiết nhóm quyền
+  .card
+    .card-header Thông tin chi tiết
+    .card-body
+      table.table.table-bordered
+        tr
+          th(style="width: 200px") Tên nhóm quyền
+          td= data.title
+
+        tr
+          th Mô tả
+          td !{data.description} 
+
+
+        tr
+          th Ngày tạo
+          td= data.createdAt ? new Date(data.createdAt).toLocaleString() : "—"
+
+
+        tr
+          th Ngày cập nhật
+          td= data.updatedAt ? new Date(data.updatedAt).toLocaleString() : "—"
+
+
+      .mt-3
+        a.btn.btn-warning.me-2(
+          href=`${prefixAdmin}/roles/edit/${data._id}`
+        ) Chỉnh sửa
+
+        a.btn.btn-outline-secondary(
+          href=`${prefixAdmin}/roles`
+        ) Quay lại

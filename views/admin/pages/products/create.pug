@@ -1,112 +1,125 @@
 extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
 
 block main
-  h1.mb-4 Thêm mới sản phẩm
+  if(role.permissions.includes("products_create"))
+    h1.mb-4 Thêm mới sản phẩm
 
-  #create-product-page
-    .form-create-wrapper
-      form(
-        action=`${prefixAdmin}/products/create`
-        method="POST"
-        id="form-create-product"
-        enctype="multipart/form-data"
-      )
-
-        .form-group
-          label(for="title") Tiêu đề
-          input.form-control(
-            type="text"
-            id="title"
-            name="title"
-            required
-          )
-
-        .form-group
-          label(for="desc") Mô tả
-          textarea(
-            class="form-control textarea-mce"
-            id="desc"
-            name="description"
-            rows="5"
-          )
-
-        .form-group
-          label(for="price") Giá
-          input.form-control(
-            type="number"
-            id="price"
-            name="price"
-            value="0"
-            min="0"
-          )
-
-        .form-group
-          label(for="discount") % Giảm giá
-          input.form-control(
-            type="number"
-            id="discount"
-            name="discountPercentage"
-            value="0"
-            min="0"
-          )
-
-        .form-group
-          label(for="stock") Số lượng
-          input.form-control(
-            type="number"
-            id="stock"
-            name="stock"
-            value="0"
-            min="0"
-          )
-
-        div(class="form-group"
-          upload-image
+    #create-product-page
+      .form-create-wrapper
+        form(
+          action=`${prefixAdmin}/products/create`
+          method="POST"
+          id="form-create-product"
+          enctype="multipart/form-data"
         )
-          label(for="thumbnail") Ảnh
-          input.form-control-file(
-            type="file"
-            id="thumbnail"
-            name="thumbnail"
-            accept="image/*"
-            upload-image-input
-          )
-          img(
-            src=""
-            upload-image-preview,
-            class="image-preview"
-          )
 
-        .form-group
-          label(for="position") Vị trí
-          input.form-control(
-            type="number"
-            id="position"
-            name="position"
-            placeholder="Tự động tăng"
-            min="1"
-          )
-
-        .form-group.status-group
-          .form-check.form-check-inline
-            input.form-check-input(
-              type="radio"
-              id="statusActive"
-              name="status"
-              value="active"
-              checked
+          .form-group
+            label(for="title") Tiêu đề
+            input.form-control(
+              type="text"
+              id="title"
+              name="title"
+              required
             )
-            label.form-check-label(for="statusActive") Hoạt động
-
-          .form-check.form-check-inline
-            input.form-check-input(
-              type="radio"
-              id="statusInActive"
-              name="status"
-              value="inactive"
+          div(class="mb-3")
+            label(for="product_category_id" class="form-label fw-bold") Danh mục 
+            select(
+              id="product_category_id"
+              name="product_category_id"
+              class="form-control"
             )
-            label.form-check-label(for="statusInActive") Dừng hoạt động
+              option(value="") -- Chọn danh mục cha --
+              if(category)
+                +select-tree(category)
 
-        .form-group.mt-3
-          button.btn.btn-primary(type="submit") Tạo mới
+
+          .form-group
+            label(for="desc") Mô tả
+            textarea(
+              class="form-control textarea-mce"
+              id="desc"
+              name="description"
+              rows="5"
+            )
+
+          .form-group
+            label(for="price") Giá
+            input.form-control(
+              type="number"
+              id="price"
+              name="price"
+              value="0"
+              min="0"
+            )
+
+          .form-group
+            label(for="discount") % Giảm giá
+            input.form-control(
+              type="number"
+              id="discount"
+              name="discountPercentage"
+              value="0"
+              min="0"
+            )
+
+          .form-group
+            label(for="stock") Số lượng
+            input.form-control(
+              type="number"
+              id="stock"
+              name="stock"
+              value="0"
+              min="0"
+            )
+
+          div(class="form-group"
+            upload-image
+          )
+            label(for="thumbnail") Ảnh
+            input.form-control-file(
+              type="file"
+              id="thumbnail"
+              name="thumbnail"
+              accept="image/*"
+              upload-image-input
+            )
+            img(
+              src=""
+              upload-image-preview,
+              class="image-preview"
+            )
+
+          .form-group
+            label(for="position") Vị trí
+            input.form-control(
+              type="number"
+              id="position"
+              name="position"
+              placeholder="Tự động tăng"
+              min="1"
+            )
+
+          .form-group.status-group
+            .form-check.form-check-inline
+              input.form-check-input(
+                type="radio"
+                id="statusActive"
+                name="status"
+                value="active"
+                checked
+              )
+              label.form-check-label(for="statusActive") Hoạt động
+
+            .form-check.form-check-inline
+              input.form-check-input(
+                type="radio"
+                id="statusInActive"
+                name="status"
+                value="inactive"
+              )
+              label.form-check-label(for="statusInActive") Dừng hoạt động
+
+          .form-group.mt-3
+            button.btn.btn-primary(type="submit") Tạo mới
   script(src="/admin/js/product.js")

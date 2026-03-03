@@ -2,15 +2,17 @@ extends ../../layouts/default.pug
 include ../../mixins/select-tree.pug
 
 block main
-  if(role.permissions.includes("products-category_create"))
-    h1(class="mb-4") Thêm mới danh mục sản phẩm
+  if(role.permissions.includes("products-category_edit"))
+    h1(class="mb-4") Chỉnh sửa danh mục sản phẩm
+
     div(class="card shadow-sm")
       div(class="card-body")
         form(
-          action=`${prefixAdmin}/products-category/create`
+          action=`${prefixAdmin}/products-category/edit/${data.id}?_method=PATCH`
           method="POST"
           enctype="multipart/form-data"
         )
+
           // ===== TITLE =====
           div(class="mb-3")
             label(for="title" class="form-label fw-bold") Tên danh mục
@@ -20,11 +22,13 @@ block main
               name="title"
               class="form-control"
               required
-              placeholder="Ví dụ: Điện thoại"
+              value=data.title
             )
+
           // ===== PARENT =====
           div(class="mb-3")
             label(for="parent_id" class="form-label fw-bold") Danh mục cha
+
             select(
               id="parent_id"
               name="parent_id"
@@ -32,9 +36,7 @@ block main
             )
               option(value="") -- Không có --
               if(records)
-                +select-tree(records)
-
-
+                +select-tree(records, 1, data.parent_id)
 
           // ===== DESCRIPTION =====
           div(class="mb-3")
@@ -44,12 +46,10 @@ block main
               name="description"
               class="form-control textarea-mce"
               rows="5"
-            )
+            ) #{data.description}
 
           // ===== THUMBNAIL =====
-          div(class="mb-3"
-            upload-image
-          )
+          div(class="mb-3" upload-image)
             label(for="thumbnail" class="form-label fw-bold") Ảnh đại diện
 
             input(
@@ -60,29 +60,36 @@ block main
               accept="image/*"
               upload-image-input
             )
-            img(
-              src=""
-              upload-image-preview
-              class="image-preview mt-3"
-            )
 
+            if(data.thumbnail)
+              img(
+                src=data.thumbnail
+                upload-image-preview
+                class="image-preview mt-3"
+              )
+            else
+              img(
+                src=""
+                upload-image-preview
+                class="image-preview mt-3"
+              )
 
           // ===== POSITION =====
           div(class="mb-3")
             label(for="position" class="form-label fw-bold") Vị trí
-
             input(
               type="number"
               id="position"
               name="position"
               class="form-control"
               min="1"
-              placeholder="Tự động tăng"
+              value=data.position
             )
 
           // ===== STATUS =====
           div(class="mb-3")
             label(class="form-label fw-bold d-block") Trạng thái
+
             div(class="form-check form-check-inline")
               input(
                 type="radio"
@@ -90,12 +97,9 @@ block main
                 name="status"
                 value="active"
                 class="form-check-input"
-                checked
+                checked=data.status === 'active'
               )
-              label(
-                for="statusActive"
-                class="form-check-label"
-              ) Hoạt động
+              label(for="statusActive" class="form-check-label") Hoạt động
 
             div(class="form-check form-check-inline")
               input(
@@ -104,22 +108,17 @@ block main
                 name="status"
                 value="inactive"
                 class="form-check-input"
+                checked=data.status === 'inactive'
               )
-              label(
-                for="statusInactive"
-                class="form-check-label"
-              ) Dừng hoạt động
+              label(for="statusInactive" class="form-check-label") Dừng hoạt động
 
           // ===== SUBMIT =====
           div(class="mt-4")
-            button(
-              type="submit"
-              class="btn btn-primary"
-            ) Tạo danh mục
+            button(type="submit" class="btn btn-primary") Cập nhật
 
             a(
               href=`${prefixAdmin}/products-category`
               class="btn btn-outline-secondary ms-2"
             ) Quay lại
-  script(src="/admin/js/product.js") 
 
+  script(src="/admin/js/product.js")

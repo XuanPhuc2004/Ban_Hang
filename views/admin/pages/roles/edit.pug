@@ -1,0 +1,43 @@
+extends ../../layouts/default.pug
+
+block main
+  if(role.permissions.includes("roles_edit"))
+    h1.mb-4 Chỉnh sửa nhóm quyền
+
+    .card
+      .card-header Cập nhật thông tin nhóm quyền
+      .card-body
+        form(
+          method="POST"
+          action=`${prefixAdmin}/roles/edit/${data._id}?_method=PATCH`
+        )
+
+          // ===== TÊN NHÓM QUYỀN =====
+          .mb-3
+            label.form-label.fw-bold(for="title") Tên nhóm quyền
+            input.form-control(
+              type="text"
+              id="title"
+              name="title"
+              required
+              value=data.title
+            )
+
+          // ===== MÔ TẢ =====
+          .mb-3
+            label.form-label.fw-bold(for="description") Mô tả ngắn
+            textarea.form-control(
+              class="textarea-mce"
+              id="description"
+              name="description"
+              rows="3"
+            ) !{data.description}
+
+        
+
+          // ===== ACTION =====
+          .mt-4
+            button.btn.btn-primary(type="submit") Cập nhật
+            a.btn.btn-outline-secondary.ms-2(
+              href=`${prefixAdmin}/roles`
+            ) Quay lại

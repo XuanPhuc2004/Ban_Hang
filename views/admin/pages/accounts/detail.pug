@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Chi tiết tài khoản
+
+  .card
+    .card-header Thông tin tài khoản
+    .card-body
+      table.table.table-bordered
+        tr
+          th(style="width:200px") Họ tên
+          td= account.fullName
+
+        tr
+          th Email
+          td= account.email
+
+        tr
+          th Nhóm quyền
+          td= account.role ? account.role.title : "—"
+
+        tr
+          th Trạng thái
+          td
+            if account.status === "active"
+              span.badge.bg-success Hoạt động
+            else
+              span.badge.bg-secondary Ngừng hoạt động
+
+        tr
+          th Ngày tạo
+          td= account.createdAt ? new Date(account.createdAt).toLocaleString() : "—"
+
+
+      a.btn.btn-secondary.mt-3(
+        href=`${prefixAdmin}/accounts`
+      ) Quay lại
