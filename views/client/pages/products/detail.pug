@@ -1,63 +1,55 @@
-extends ../../layouts/default.pug 
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
 block main
-  div(class="container my-4")
+  .product-detail
+    .container.my-5
+      .row
+        .col-md-6
+          .inner-thumb
+            img(src=product.thumbnail, alt=product.title)
 
-    div(class="row")
+        .col-md-6
+          h1.inner-title= product.title
 
-      div(class="col-12")
-        h1(class="mb-4") #{product.title}
+          if product.category
+            .inner-category
+              span Danh mục:
+              a(href=`/products/${product.category.slug}`)= product.category.title
 
-    div(class="row")
+          if product.priceNew
+            .inner-price-new #{product.priceNew}$
 
-      // Ảnh sản phẩm
-      div(class="col-md-5")
-        div(class="product-detail-image")
-          img(
-            src=product.thumbnail
-            alt=product.title
-            class="img-fluid rounded border"
-          )
+          if product.price
+            .inner-price-old #{product.price}$
 
-      // Thông tin
-      div(class="col-md-7")
+          if product.discountPercentage
+            .inner-percent
+              | Giảm tới 
+              span #{product.discountPercentage}%
 
-        div(class="product-detail-info")
+          if product.stock
+            .inner-stock
+              | Còn lại 
+              span #{product.stock}
+              |  sản phẩm
 
-          div(class="price mb-3")
-            span(class="fs-3 fw-bold text-danger")
-              | #{product.price.toLocaleString()} đ
+          form(action=`/cart/add/${product.id}` method="POST")
+            input.form-control.mb-3(
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max=product.stock
+            )
 
-            if product.discountPercentage > 0
-              span(class="ms-2 text-muted text-decoration-line-through")
-                | #{Math.round(product.price / (1 - product.discountPercentage / 100)).toLocaleString()} đ
+            button.btn.btn-success.w-100(type="submit")
+              | Thêm vào giỏ hàng
 
-          div(class="mb-3")
-            span(class="badge bg-success") Còn hàng
+      hr
 
-          div(class="mb-3")
-            h5 Mô tả
-            p !{product.description}
-
-          div(class="mb-3")
-            p
-              strong Số lượng:
-              |  #{product.stock}
-
-          div(class="mb-3")
-            p
-              strong Vị trí:
-              |  #{product.position}
-
-          // Nút hành động
-          div(class="product-actions mt-4")
-
-            a(
-              href="/products"
-              class="btn btn-outline-secondary me-2"
-            ) Quay lại
-
-            a(
-              href=`/cart/add/${product._id}`
-              class="btn btn-primary"
-            ) Thêm vào giỏ
+    .container.my-5
+      .row
+        .col-12
+          +box-head("Mô tả sản phẩm")
+          .inner-desc !{product.description}

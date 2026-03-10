@@ -1,7 +1,7 @@
 mixin product-item(item)
   .col-md-3.col-sm-6.mb-4
       .card.product-card.h-100
-        a(href=`/products/${item.slug}`)
+        a(href=`/products/detail/${item.slug}`)
           img.card-img-top(
             src=item.thumbnail
             alt=item.title
