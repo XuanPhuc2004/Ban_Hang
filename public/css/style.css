@@ -12,10 +12,11 @@
   margin: 0;
 }
 
-.section-title {
-  font-size: 22px;
+h2.section-title {
+  font-size: 30px;
   font-weight: 600;
   margin-bottom: 16px;
+  color: darkorchid;
 }
 
 .home-banner img {
@@ -43,11 +44,11 @@ ul {
   padding: 0;
   margin: 0;
 }
-
-a {
+.card.product-card a {
   text-decoration: none;
-  color: inherit;
+  color: linear-gradient(90deg, #fd0d85, #6610f2);;
 }
+
 
 /* ============================
    BOX HEAD
@@ -71,7 +72,7 @@ a {
 ============================ */
 .header {
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  border-bottom: 1px solid linear-gradient(135deg, #43cea2, #185a9d);
+  border-bottom: 1px solid #ddd;
   padding: 12px 0;
   position: sticky;
   top: 0;
@@ -83,11 +84,7 @@ a {
   object-fit: contain;
 }
 
-.header .inner-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
+.header .inner-menu > ul {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -149,12 +146,24 @@ a {
   width: 100%;
   height: 220px;
   overflow: hidden;
+  position: relative
 }
 
 .product-item .inner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.card.product-card .inner-featured {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: green;
+  color: wheat;
+  padding: 3px 5px;
+  font-weight: 650;
+  font-size: 14px;
+  border-radius: 8px;
 }
 
 /* ===== CONTENT ===== */
@@ -220,3 +229,39 @@ a {
 }
 
 
+/* sub-menu */
+.sub-menu {
+  position: relative;
+  z-index: 999;
+}
+
+.sub-menu ul {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #eae9e9;
+  min-width: 180px;
+  display: none;
+}
+
+.sub-menu ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.sub-menu:hover > ul {
+  display: block;
+}
+
+.sub-menu ul li ul {
+  right: 100%;
+  top: 0;
+}
+
+.sub-menu ul li:hover > ul {
+  display: block;
+}

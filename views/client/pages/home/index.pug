@@ -1,43 +1,28 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/product-layout.pug
 
 block main
   +box-head("Trang Chủ")
 
-  div(class="container my-4")
+  .container.my-4
 
-    // ===== BANNER =====
-    div(class="row mb-4")
-
-      div(class="col-12")
-        div(class="home-banner")
-
-          img(
+    .row.mb-4
+      .col-12
+        .home-banner
+          img.img-fluid.rounded(
             src="/images/banner.webp"
-            alt="Banner"
-            class="img-fluid rounded"
           )
 
-    // ===== FEATURE PRODUCTS =====
-    div(class="row mb-3")
+    .row.mb-3
+      .col-12
+        h2.section-title Sản phẩm nổi bật
 
-      div(class="col-12")
-        h2(class="section-title") Sản phẩm nổi bật
+    +product-grid(productsFeatured)
 
-    div(class="row")
-      each item in products
-        div(class="col-md-3 col-sm-6 mb-4")
-          div(class="card product-card h-100")
-            img(
-              src=item.thumbnail
-              alt=item.title
-              class="card-img-top"
-            )
-            div(class="card-body")
-              h5(class="card-title") #{item.title}
-              p(class="price text-danger fw-bold") #{item.price} đ
+  .container.my-4
+    .row.mb-3
+      .col-12
+        h2.section-title Sản phẩm mới
 
-              a(
-                href=`/products/${item.slug}`
-                class="btn btn-outline-primary w-100"
-              ) Xem chi tiết
+    +product-grid(productsNew)

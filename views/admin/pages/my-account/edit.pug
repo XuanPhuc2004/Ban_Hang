@@ -1,0 +1,95 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Chỉnh sửa thông tin cá nhân
+
+  form(
+    action=`${prefixAdmin}/my-account/edit?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  )
+
+    // Avatar hiện tại
+    if(user.avatar)
+      img(
+        src=user.avatar
+        width="150px"
+        class="mb-3 d-block"
+      )
+    else
+      img(
+        src="/admin/images/avatar.png"
+        width="150px"
+        class="mb-3 d-block"
+      )
+
+    // Upload avatar mới
+    .mb-3
+            div(class="form-group"
+            upload-image
+          )
+            label(for="thumbnail") Avatar
+            input.form-control-file(
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/*"
+              upload-image-input
+            )
+            img(
+              src=""
+              upload-image-preview,
+              class="image-preview"
+            )
+
+    // Họ tên
+    .mb-3
+      label.form-label Họ tên
+      input.form-control(
+        type="text"
+        name="fullName"
+        value=user.fullName
+        required
+      )
+
+    // Email (thường không cho sửa, nhưng bạn có thể cho sửa nếu muốn)
+    .mb-3
+      label.form-label Email
+      input.form-control(
+        type="email"
+        value=user.email
+        disabled
+      )
+    // Mật khẩu
+    .mb-3
+      label.form-label Mật khẩu
+      input.form-control(
+        type="password"
+        name="password"
+        id="password"
+
+      )
+
+    // Số điện thoại
+    .mb-3
+      label.form-label Số điện thoại
+      input.form-control(
+        type="text"
+        name="phone"
+        value=user.phone
+      )
+
+    // Trạng thái (chỉ hiển thị)
+    .mb-3
+      label.form-label Trạng thái
+      br
+      if(user.status === "active")
+        span.badge.bg-success Hoạt động
+      else
+        span.badge.bg-secondary Ngừng hoạt động
+
+    button.btn.btn-primary(type="submit") Cập nhật
+
+    a.btn.btn-secondary.ms-2(
+      href=`${prefixAdmin}/my-account`
+    ) Quay lại
