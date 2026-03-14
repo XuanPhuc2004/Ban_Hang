@@ -1,0 +1,83 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-5
+    .row
+      .col-12
+    .row.justify-content-center
+      .col-lg-10
+
+        .card.shadow.text-center.p-4.mb-4
+          .success-icon.mb-3
+            i(class="bi bi-check-circle-fill text-success" style="font-size:70px")
+          h3.text-success.mb-3 Đặt hàng thành công!
+
+          p.mb-2
+            | Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi.
+
+          p.mb-4
+            | Đơn hàng của bạn đang được xử lý. Chúng tôi sẽ liên hệ sớm nhất.
+
+    if(order)
+      .row.mb-4
+        .col-12
+          h4.mb-3 Thông tin người nhận
+
+          table.table.table-bordered
+            tbody
+              tr
+                td Họ tên
+                td
+                  b #{order.userInfo.fullName}
+
+              tr
+                td Số điện thoại
+                td
+                  b #{order.userInfo.phone}
+
+              tr
+                td Địa chỉ
+                td
+                  b #{order.userInfo.address}
+
+      .row
+        .col-12
+          h4.mb-3 Chi tiết đơn hàng
+
+          table.table.table-bordered
+            thead
+              tr
+                th STT
+                th Ảnh
+                th Tên sản phẩm
+                th Giá
+                th Số lượng
+                th Thành tiền
+
+            tbody
+              each item, index in order.products
+                tr
+                  td #{index + 1}
+                  td
+                    img(
+                      src=item.productInfo.thumbnail
+                      width="70"
+                    )
+                  td #{item.productInfo.title}
+                  td #{item.priceNew}$
+                  td #{item.quantity}
+                  td #{item.totalPrice}$
+
+      .row.mt-3
+        .col-12.text-end
+          h4
+            | Tổng đơn hàng: 
+            span.text-danger #{order.totalPrice}$
+
+    .text-center.mt-4
+      a(href="/products" class="btn btn-primary me-2")
+        | Tiếp tục mua hàng
+
+      a(href="/" class="btn btn-outline-secondary")
+        | Về trang chủ

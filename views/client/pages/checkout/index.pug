@@ -1,0 +1,95 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-3
+    .row
+      .col-12
+        +box-head("Đặt hàng")
+
+    .row
+      // Thông tin khách hàng
+      .col-md-6
+        .card
+          if(cartDetail.products.length > 0)
+            .card-header
+              h5 Thông tin người nhận
+            .card-body
+              form(action="/checkout/order" method="POST")
+                .mb-3
+                  label.form-label Họ tên
+                  input.form-control(
+                    type="text"
+                    name="fullName"
+                    placeholder="Nhập họ tên"
+                    required
+                  )
+
+                .mb-3
+                  label.form-label Số điện thoại
+                  input.form-control(
+                    type="text"
+                    name="phone"
+                    placeholder="Nhập số điện thoại"
+                    required
+                  )
+
+                .mb-3
+                  label.form-label Địa chỉ
+                  textarea.form-control(
+                    name="address"
+                    rows="3"
+                    placeholder="Nhập địa chỉ giao hàng"
+                    required
+                    
+                  )
+
+                .mb-3
+                  label.form-label Ghi chú
+                  textarea.form-control(
+                    name="note"
+                    rows="2"
+                    placeholder="Ghi chú thêm "
+                  )
+
+                button.btn.btn-primary(type="submit") Đặt hàng
+
+      // Danh sách sản phẩm
+      .col-md-6
+        .card
+          if(cartDetail.products.length > 0)
+            .card-header
+              h5 Sản phẩm trong giỏ
+            .card-body
+              table.table.table-bordered
+                thead
+                  tr
+                    th Ảnh
+                    th Sản phẩm
+                    th Sô lượng
+                    th Giá
+                    th Tổng
+                tbody
+                  each item in cartDetail.products
+                    tr
+                      td
+                        img(
+                          src=item.productInfo.thumbnail
+                          width="60"
+                        )
+                      td #{item.productInfo.title}
+                      td #{item.quantity}
+                      td #{item.productInfo.priceNew} $
+                      td #{item.quantity * item.productInfo.priceNew} $
+
+            hr
+
+            .d-flex.justify-content-between
+              strong Tổng tiền:
+              strong.text-danger #{cartDetail.totalPrice} $
+          else 
+            tr 
+              td(
+                colspan="7"
+                class="text-center"
+              ) Giỏ hàng trống

@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-4
+    .row.justify-content-center
+      .col-md-5
+        +box-head("Đăng nhập")
+
+        .card.shadow-sm
+          .card-body
+            form(action="/user/login" method="POST")
+
+              .mb-3
+                label.form-label Email
+                input.form-control(
+                  type="email"
+                  name="email"
+                  placeholder="Nhập email"
+                  required
+                )
+
+              .mb-3
+                label.form-label Mật khẩu
+                input.form-control(
+                  type="password"
+                  name="password"
+                  placeholder="Nhập mật khẩu"
+                  required
+                )
+
+              .mb-3.form-check
+                input.form-check-input(
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                )
+                label.form-check-label(for="remember") Ghi nhớ đăng nhập
+
+              .d-grid
+                button.btn.btn-primary(type="submit")
+                  | Đăng nhập
+
+            hr
+            .text-start 
+              a(href="/user/password/forgot") Quên mật khẩu  
+            .text-center
+              span Bạn chưa có tài khoản? 
+              a(href="/user/register") Đăng ký
