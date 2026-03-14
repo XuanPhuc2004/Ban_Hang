@@ -1,0 +1,76 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-5
+
+    .row
+      .col-12
+        +box-head("Thông tin tài khoản")
+
+    .row.justify-content-center
+      .col-lg-8
+
+        .card.shadow.p-4
+
+          .row
+            .col-md-4.text-center
+
+              if(infoUser.avatar)
+                img(
+                  src=infoUser.avatar
+                  alt=infoUser.fullName
+                  class="img-fluid rounded-circle mb-3"
+                  style="width:150px;height:150px;object-fit:cover"
+                )
+              else
+                img(
+                  src="/images/default-avatar.png"
+                  class="img-fluid rounded-circle mb-3"
+                  style="width:150px;height:150px"
+                )
+
+              h5 #{infoUser.fullName}
+
+            .col-md-8
+
+              table.table.table-bordered
+                tbody
+
+                  tr
+                    td Họ tên
+                    td 
+                      b #{infoUser.fullName}
+
+                  tr
+                    td Email
+                    td 
+                      b #{infoUser.email}
+
+                  if(infoUser.phone)
+                    tr
+                      td Số điện thoại
+                      td 
+                        b #{infoUser.phone}
+
+                  if(infoUser.address)
+                    tr
+                      td Địa chỉ
+                      td 
+                        b #{infoUser.address}
+
+                  tr
+                    td Ngày tạo
+                    td 
+                      b #{infoUser.createdAt}
+
+              .mt-3
+                a(
+                  href="/user/edit"
+                  class="btn btn-primary me-2"
+                ) Chỉnh sửa thông tin
+
+                a(
+                  href="/user/password/reset"
+                  class="btn btn-warning"
+                ) Đổi mật khẩu
