@@ -1,0 +1,73 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug 
+
+block main
+  .container.my-3
+
+    .row
+      .col-12
+        +box-head("Chat trực tiếp")
+
+    .row.chat-wrapper
+
+      // DANH SÁCH USER CHAT
+      .col-md-4
+        .card.chat-users
+
+          .card-header
+            h6.mb-0 Danh sách khách hàng
+
+          ul.list-group.list-group-flush
+
+            li.list-group-item.active
+              .d-flex.align-items-center
+                img(src="/images/default-avatar.png" class="chat-avatar")
+                .ms-2
+                  strong Nguyễn Văn A
+                  div.text-muted.small Đang online
+
+            li.list-group-item
+              .d-flex.align-items-center
+                img(src="/images/default-avatar.png" class="chat-avatar")
+                .ms-2
+                  strong Trần Văn B
+                  div.text-muted.small Offline
+
+      // KHUNG CHAT
+      .col-md-8
+        .card.chat-box
+
+          .card-header
+            .d-flex.align-items-center
+              img(src="/images/default-avatar.png" class="chat-avatar")
+              .ms-2
+                strong Nguyễn Văn A
+                div.text-success.small Online
+
+          .card-body.chat-messages
+
+            .message.other
+              .message-content
+                | Xin chào shop
+
+            .message.me
+              .message-content
+                | Chào bạn, mình có thể giúp gì?
+
+            .message.other
+              .message-content
+                | Sản phẩm này còn hàng không?
+
+          .card-footer
+          form(action=""
+            class="inner-form"
+          ) 
+            form.chat-form
+              
+              .input-group
+                input.form-control(
+                  type="text"
+                  placeholder="Nhập tin nhắn..."
+                )
+                button.btn.btn-primary(type="submit")
+                  i.fa-solid.fa-paper-plane

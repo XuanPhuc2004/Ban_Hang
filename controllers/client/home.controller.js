@@ -24,7 +24,7 @@ module.exports.index = async (req, res) => {
 
 
   res.render("client/pages/home/index", {
-    pageTitle: "Trang chu",
+    pageTitle: "Trang chủ",
     productsFeatured: newProductsFeatured,
     productsNew: newProductsNew,
   });
