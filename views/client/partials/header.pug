@@ -41,6 +41,10 @@ header(class="header")
               li
                 a(href="/user/logout") Đăng xuất 
               li
+                a(href="/chat")
+                  i.fa-solid.fa-comments.me-2
+                  | Chat
+              li
                 a(href="/user/info") #{user.fullName} 
             else
               li

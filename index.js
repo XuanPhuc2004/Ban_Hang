@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const moment = require("moment");
 const flash = require("express-flash");
+const http = require('http');
+const { Server } = require("socket.io");
 
 require("dotenv").config();
 const route = require("./routes/client/index.route");
@@ -29,6 +31,12 @@ app.use(cookieParser("UNGGOGIGO"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 
+//socket.io
+const server = http.createServer(app);
+const io = new Server(server);
+global._io = io;
+//end socket.io
+
 // TintMCE
 app.use(
   "/tinymce",
@@ -49,6 +57,6 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

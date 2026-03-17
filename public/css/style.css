@@ -389,55 +389,188 @@ ul {
 
 
 /* CHAT */
-.chat-wrapper{
-  height: 500px;
-}
-
-.chat-users{
-  height: 500px;
-  overflow-y: auto;
-}
-
-.chat-box{
-  height: 500px;
+.chat {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
   display: flex;
   flex-direction: column;
+  height: 500px;
 }
 
-.chat-messages{
+/* body chat */
+.chat .inner-body {
   flex: 1;
-  overflow-y: auto;
-  background: #f5f5f5;
   padding: 15px;
+  overflow-y: auto;
+  background: #f5f7fb;
+  max-height: 450px;
 }
 
-.chat-avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  object-fit:cover;
+/* tin nhắn */
+.chat .inner-incoming,
+.chat .inner-outgoing {
+  margin-bottom: 12px;
+  max-width: 70%;
 }
 
-.message{
-  margin-bottom:10px;
-  display:flex;
+/* tên người gửi */
+.chat .inner-name {
+  font-size: 13px ;
+  color: rgb(196, 23, 52);
+  margin-bottom: 3px;
+  font-weight: 700;
 }
 
-.message.me{
-  justify-content:flex-end;
+/* bong bóng chat */
+.chat .inner-content {
+  padding: 10px 14px;
+  border-radius: 15px;
+  font-size: 17px;
+  line-height: 1.5;
+  display: inline-block;
+  background-color: #4fcdff;
 }
 
-.message-content{
-  padding:8px 12px;
-  border-radius:10px;
-  max-width:60%;
+/* tin nhắn nhận */
+.chat .inner-incoming {
+  text-align: left;
 }
 
-.message.me .message-content{
-  background:#0d6efd;
-  color:white;
+.chat .inner-incoming .inner-content {
+  background: #fad0c4;
+  border: 1px solid #eee;
 }
 
-.message.other .message-content{
-  background:#e4e6eb;
+/* tin nhắn gửi */
+.chat .inner-outgoing {
+  text-align: right;
+  margin-left: auto;
+}
+
+.chat .inner-outgoing .inner-content {
+  background: #4f7cff;
+  color: white;
+}
+
+/* footer chat */
+.chat .inner-foot {
+  border-top: 1px solid #eee;
+  background: #fff;
+  padding: 10px;
+}
+
+/* form chat */
+.chat .inner-form {
+  display: flex;
+  gap: 10px;
+}
+
+/* input */
+.chat .inner-form input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  padding: 10px 15px;
+  outline: none;
+  font-size: 14px;
+}
+
+/* button */
+.chat .inner-form button {
+  width: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #4f7cff;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat .inner-form button:hover {
+  background: #355fe5;
+}
+
+
+/* emoji Icon */
+.tooltip {
+  visibility: hidden;
+  
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+
+.inner-foot .icons{
+  font-size: 26px;
+  color: #0d6efd;
+  right: 18px;
+}
+
+/* typing  */
+.box-typing {
+  position: relative;
+}
+
+.box-typing .inner-dots {
+  position: relative;
+  height: 20px;
+  width: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #efefef;
+  border-radius: 45px;
+  margin-top: 2px;
+}
+
+.box-typing .inner-dots span {
+  animation: blink 1.5s infinite;
+  height: 5px;
+  width: 5px;
+  background: #252525;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 3px;
+
+}
+
+.box-typing .inner-dots span:nth-child(2){
+  animation-delay: 0.2s;
+}
+.box-typing .inner-dots span:nth-child(3){
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.chat .inner-body .inner-images img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: #efefef;
+  padding: 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 5px;
+}
+
+.chat .inner-body .inner-outgoing .inner-images {
+  margin-left: auto;
+  text-align: right;
+}
+.chat .inner-body .inner-outgoing .inner-images img {
+  margin: 0 0 5px 5px;
 }
