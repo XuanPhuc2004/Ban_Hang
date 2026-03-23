@@ -8,6 +8,7 @@ const moment = require("moment");
 const flash = require("express-flash");
 const http = require('http');
 const { Server } = require("socket.io");
+const chatSocket = require("./sockets/client/chat.socket");
 
 require("dotenv").config();
 const route = require("./routes/client/index.route");
@@ -35,6 +36,8 @@ app.use(flash());
 const server = http.createServer(app);
 const io = new Server(server);
 global._io = io;
+
+chatSocket(_io); // ✅ CHỈ 1 LẦN DUY NHẤT
 //end socket.io
 
 // TintMCE

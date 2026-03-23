@@ -75,7 +75,7 @@ ul {
    HEADER CLIENT
 ============================ */
 .header {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: linear-gradient(135deg, #9adfff, #fad0c4);
   border-bottom: 1px solid #ddd;
   padding: 12px 0;
   position: sticky;
@@ -573,4 +573,100 @@ ul {
 }
 .chat .inner-body .inner-outgoing .inner-images img {
   margin: 0 0 5px 5px;
+}
+
+
+ /* box-users  */
+
+.box-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 16px;
+  margin-bottom: 12px;
+
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #eee;
+
+  transition: all 0.25s ease;
+}
+
+.box-user [btn-cancel-friend] {
+  display: none;
+}
+
+.box-user.add [btn-add-friend] {
+  display: none;
+}
+
+.box-user.add [btn-cancel-friend] {
+  display: none;
+}
+
+.box-user:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* ===== LEFT SIDE ===== */
+.box-user .inner-avatar {
+  margin-right: 12px;
+}
+
+.box-user .inner-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* ===== INFO ===== */
+.box-user .inner-info {
+  flex: 1;
+}
+
+.box-user .inner-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== BUTTONS ===== */
+.box-user .inner-buttons {
+  margin-top: 6px;
+}
+
+.box-user .inner-buttons .btn {
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* primary */
+.box-user .btn-primary {
+  background: #0d6efd;
+  border: none;
+}
+
+.box-user .btn-primary:hover {
+  background: #0b5ed7;
+}
+
+/* secondary */
+.box-user .btn-secondary {
+  background: #e4e6eb;
+  color: #333;
+  border: none;
+}
+
+.box-user .btn-secondary:hover {
+  background: #d8dadf;
+}
+
+/* ===== WRAP LAYOUT ===== */
+.box-user {
+  gap: 12px;
 }

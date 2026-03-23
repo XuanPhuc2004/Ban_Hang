@@ -3,35 +3,47 @@ include ../../mixins/box-head.pug
 
 block main
   .container.my-3
-
+    include ../../partials/list-btn-users.pug
     .row
       .col-12
         +box-head("Chat trực tiếp")
-        .chat(my-id=user.id )
+
+        // ✅ FIX: thêm my-name (quan trọng cho socket)
+        .chat(my-id=user.id my-name=user.fullName)
+
           .inner-body 
             each chat in chats 
-              div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-incoming "))
+              div(class=(chat.user_id == user.id ? "inner-outgoing" : "inner-incoming"))
+                
                 if(chat.user_id != user.id)
                   if(chat.infoUser)
                     .inner-name #{chat.infoUser.fullName}
                   else
                     .inner-name Unknown
+
                 if(chat.content)
                   .inner-content #{chat.content}
             
-            div(class="inner-list-typing")
+            // ❗ giữ nguyên nhưng viết gọn lại cho đúng pug
+            .inner-list-typing
+
           .inner-foot 
-            form(action=""
-              class="inner-form"
-            ) 
+            // ❗ FIX: bỏ action="" (tránh reload ngầm)
+            form.inner-form 
               input(
                 type="text"
-                placeholder="Nhập nội dung "
+                placeholder="Nhập nội dung"
                 name="content"
+                autocomplete="off"
               )
-              span(class="button-icon btn btn-light  icons") 
+
+              span.button-icon.btn.btn-light.icons
                 i.fa-regular.fa-face-grin-wink
-              button
+
+              // ❗ FIX: thêm type submit cho chắc
+              button(type="submit")
                 i.fa-solid.fa-paper-plane
-    div(class="tooltip" role="tooltip")
-      emoji-picker(class="light")
+
+    // ❗ FIX: giữ nguyên nhưng format lại cho chuẩn
+    .tooltip(role="tooltip")
+      emoji-picker.light

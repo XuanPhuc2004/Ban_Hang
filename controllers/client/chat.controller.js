@@ -5,7 +5,7 @@ const chatSocket = require("../../sockets/client/chat.socket");
 //[GET] /chat/
 module.exports.index = async (req, res) => {
 
-  chatSocket(res);
+  // chatSocket(res);
   // lay data từ db
   const chats = await Chat.find({
     deleted: false
