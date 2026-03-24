@@ -121,7 +121,7 @@ ul {
 
   text-align: center;
 
-  background-color: #212529;
+  background: linear-gradient(135deg, #042a3b, #132e03);
   color: #ffffff;
 
   font-size: 14px;
@@ -588,7 +588,7 @@ ul {
 
   background: #ffffff;
   border-radius: 10px;
-  border: 1px solid #eee;
+  border: 1px solid #925a4b;
 
   transition: all 0.25s ease;
 }
@@ -602,7 +602,49 @@ ul {
 }
 
 .box-user.add [btn-cancel-friend] {
+  display: inline-block;
+}
+
+.box-user [btn-deleted-friend] {
   display: none;
+}
+
+.box-user.refuse [btn-accept-friend] {
+  display: none;
+}
+
+.box-user.refuse [btn-refuse-friend] {
+  display: none;
+}
+
+.box-user.refuse [btn-deleted-friend] {
+  display: inline-block;
+}
+
+.box-user [btn-accepted-friend] {
+  display: none;
+}
+
+.box-user.accepted [btn-accept-friend] {
+  display: none;
+}
+
+.box-user.accepted [btn-refuse-friend] {
+  display: none;
+}
+
+.box-user.accepted [btn-accepted-friend] {
+  display: inline-block;
+}
+
+.box-user .inner-status {
+  font-size: 12px;
+  color: #19871e;
+  opacity: 0;
+}
+
+.box-user .inner-status[status="online"] {
+  opacity: 1;
 }
 
 .box-user:hover {
@@ -670,3 +712,5 @@ ul {
 .box-user {
   gap: 12px;
 }
+
+

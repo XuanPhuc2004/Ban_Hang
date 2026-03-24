@@ -6,11 +6,11 @@ block main
     include ../../partials/list-btn-users.pug 
     .row 
       .col-12 
-        +box-head("Danh sách người dùng")
-    .row(data-user-not-friend=user.id)
+        +box-head("Lời mời đã gửi")
+    .row 
       each user in users
-        .col-6(user-id=user.id)
-          div(class="box-user")
+        .col-6 
+          div(class="box-user add")
             div(class="inner-avatar")
               img(src=user.avatar ? user.avatar : "/images/avatarusers.png", alt=user.fullName)
             div(class="inner-info")
