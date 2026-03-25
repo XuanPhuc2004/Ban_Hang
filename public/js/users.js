@@ -79,6 +79,12 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
     const userId = dataUserAccept.getAttribute("data-user-accept");
     if (userId.toString() === data.userId.toString()) {
       // vẽ user ra giao dien
+      const existUser = dataUserAccept.querySelector(
+        `[user-id='${data.infoUserA._id}']`
+      );
+    
+      if (existUser) return; // 🚀 chống trùng
+    
       const div = document.createElement("div");
       div.classList.add("col-6");
       div.setAttribute("user-id", data.infoUserA._id);
@@ -125,8 +131,6 @@ socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
 });
 
 
-
-
 // SERVER_RETURN_USER_ID_CANCEL_FRIEND 
 socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND", (data) => {
   const userIdA = data.userIdA;
@@ -136,6 +140,18 @@ socket.on("SERVER_RETURN_USER_ID_CANCEL_FRIEND", (data) => {
     const userIdB = badgeUsersAccept.getAttribute("badge-users-accept");
     if(userIdB === data.userIdB) {
       dataUserAccept.removeChild(boxUserRemove);
+    }
+  }
+});
+
+// SERVER_RETURN_USER_STATUS_ONLINE
+socket.on("SERVER_RETURN_USER_STATUS_ONLINE", (data) => {
+  const dataUserFriend = document.querySelector("[data-user-friend]");
+  if(dataUserFriend) {
+    const boxUser = dataUserFriend.querySelector(`[user-id="${data.userId}"]`);
+    if(boxUser) {
+      const boxStatus = boxUser.querySelector("[status]");
+      boxStatus.setAttribute("status", data.status);
     }
   }
 });

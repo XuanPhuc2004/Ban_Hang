@@ -713,4 +713,95 @@ ul {
   gap: 12px;
 }
 
+/* box room  */
+/* ===== ROOM LIST ===== */
+.box-room {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 
+  padding: 14px 16px;
+  margin-bottom: 14px;
+
+  background: #dee5e9;
+  border-radius: 12px;
+  border: 1px solid #4d575a;
+
+  transition: all 0.25s ease;
+}
+
+.box-room:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transform: translateY(-3px);
+}
+
+/* ===== IMAGE ===== */
+.box-room img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+/* ===== INFO ===== */
+.box-room .inner-info {
+  flex: 1;
+}
+
+.box-room .inner-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== BUTTON ===== */
+.box-room .inner-buttons {
+  margin-top: 6px;
+}
+
+.box-room .btn {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+
+/* button hover */
+.box-room .btn-primary {
+  background: #0d6efd;
+  border: none;
+}
+
+.box-room .btn-primary:hover {
+  background: #0b5ed7;
+}
+
+/* ===== GRID FIX ===== */
+.row .col-6 {
+  margin-bottom: 10px;
+}
+
+
+
+/* CREATE ROOM */
+.card {
+  border-radius: 12px;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.form-label {
+  margin-bottom: 6px;
+}
+
+button.btn-success {
+  padding: 8px 18px;
+}
+.image-preview {
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

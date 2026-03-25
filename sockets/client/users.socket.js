@@ -1,4 +1,5 @@
 const User = require("../../models/user.model");
+const RoomChat = require("../../models/rooms-chat.model");
 
 module.exports = (res) => {
   _io.on("connection", (socket) => {
@@ -43,25 +44,25 @@ module.exports = (res) => {
         );
       }
 
-      // lấy ra độ dài cảu acceptFriend của B trả về cho B 
+      // lấy ra độ dài cảu acceptFriend của B trả về cho B
       const infoUserB = await User.findOne({
-        _id: userId
+        _id: userId,
       });
       const lengthAcceptFriends = infoUserB.acceptFriend.length;
-      
+
       socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
         userId: userId,
-        lengthAcceptFriends: lengthAcceptFriends
+        lengthAcceptFriends: lengthAcceptFriends,
       });
 
-      // lấy info của A trả về cho B 
+      // lấy info của A trả về cho B
       const infoUserA = await User.findOne({
-        _id: myUserId
+        _id: myUserId,
       }).select("_id fullName");
 
       socket.broadcast.emit("SERVER_RETURN_INFO_ACCEPT_FRIEND", {
         userId: userId,
-        infoUserA: infoUserA
+        infoUserA: infoUserA,
       });
     });
 
@@ -106,24 +107,23 @@ module.exports = (res) => {
         );
       }
 
-      // lấy ra độ dài cảu acceptFriend của B trả về cho B 
+      // lấy ra độ dài cảu acceptFriend của B trả về cho B
       const infoUserB = await User.findOne({
-        _id: userId
+        _id: userId,
       });
       const lengthAcceptFriends = infoUserB.acceptFriend.length;
-      
+
       socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
         userId: userId,
-        lengthAcceptFriends: lengthAcceptFriends
+        lengthAcceptFriends: lengthAcceptFriends,
       });
 
       // lấy Id của A và trả về cho b
       socket.broadcast.emit("SERVER_RETURN_USER_ID_CANCEL_FRIEND", {
         userIdB: userId,
-        userIdA: myUserId
+        userIdA: myUserId,
       });
     });
-
 
     // chức năng từ chối kết bạn
     socket.on("CLIENT_REFUSE_FRIEND", async (userId) => {
@@ -174,12 +174,40 @@ module.exports = (res) => {
       // console.log(myUserId); // id cua B
       // console.log(userId); // id cua A
 
-      // thêm {user_id, room_chat_id} của A vào friendList của B
-      // Xóa id cua A trong acceptFriends cua B
+      // check exist 
       const existIdAinB = await User.findOne({
         _id: myUserId,
         acceptFriend: userId, // trong accep co id ong A chua
       });
+
+      const existIdBinA = await User.findOne({
+        _id: userId,
+        requestFriend: myUserId, // trong requesy co id ong B chua
+      });
+
+      // tạo phòng chat chung 2 người
+      let roomChat;
+      if(existIdAinB && existIdBinA) {
+        const dataRoom = {
+          typeRoom: "friend",
+          users: [
+            {
+              user_id: userId,
+              role: "superAdmin",
+            },
+            {
+              user_id: myUserId,
+              role: "superAdmin",
+            }
+          ],
+        };
+        roomChat = new RoomChat(dataRoom);
+        await roomChat.save();
+
+      }
+
+      // thêm {user_id, room_chat_id} của A vào friendList của B
+      // Xóa id cua A trong acceptFriends cua B
 
       if (existIdAinB) {
         await User.updateOne(
@@ -187,8 +215,11 @@ module.exports = (res) => {
             _id: myUserId,
           },
           {
-            $push: {
-              friendList: { user_id: userId, room_chat_id:"" },
+            $addToSet: {
+              friendList: {
+                user_id: userId,
+                room_chat_id: roomChat.id,
+              },
             },
             $pull: { acceptFriend: userId },
           }
@@ -197,10 +228,6 @@ module.exports = (res) => {
 
       // thêm {user_id, room_chat_id} của B vào friendList của A
       // xóa id cua B trong requestFriends cua A
-      const existIdBinA = await User.findOne({
-        _id: userId,
-        requestFriend: myUserId, // trong requesy co id ong B chua
-      });
 
       if (existIdBinA) {
         await User.updateOne(
@@ -208,8 +235,9 @@ module.exports = (res) => {
             _id: userId,
           },
           {
-            $push: {
-              friendList: { user_id: myUserId, room_chat_id: "" },
+            $addToSet: {
+              friendList: { user_id: myUserId, room_chat_id: roomChat.id 
+              },
             },
             $pull: { requestFriend: myUserId },
           }

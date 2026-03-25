@@ -41,9 +41,12 @@ header(class="header")
               li
                 a(href="/user/logout") Đăng xuất 
               li
-                a(href="/chat")
-                  i.fa-solid.fa-comments.me-2
-                  | Chat
+                //- a(href="/chat")
+                //-   i.fa-solid.fa-comments.me-2
+                //-   | Chat
+                a(href="/users/friends") Bạn bè 
+              li
+                a(href="/rooms-chat") Phòng chat 
               li
                 a(href="/user/info") #{user.fullName} 
             else

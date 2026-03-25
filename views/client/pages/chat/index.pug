@@ -9,7 +9,11 @@ block main
         +box-head("Chat trực tiếp")
 
         // ✅ FIX: thêm my-name (quan trọng cho socket)
-        .chat(my-id=user.id my-name=user.fullName)
+        .chat(
+            my-id=user.id 
+            my-name=user.fullName
+            room-chat-id=roomChatId
+          )
 
           .inner-body 
             each chat in chats 

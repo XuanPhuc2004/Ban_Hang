@@ -4,7 +4,8 @@ import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm
 const socket = io({
   auth: {
     userId: document.querySelector(".chat").getAttribute("my-id"),
-    fullName: document.querySelector(".chat").getAttribute("my-name")
+    fullName: document.querySelector(".chat").getAttribute("my-name"),
+    roomChatId: document.querySelector(".chat").getAttribute("room-chat-id")
   }
 });
 

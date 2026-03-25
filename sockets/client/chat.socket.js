@@ -53,16 +53,18 @@ module.exports = (io) => {
 
     const userId = socket.handshake.auth.userId;
     const fullName = socket.handshake.auth.fullName;
+    const roomChatId = socket.handshake.auth.roomChatId;
 
+    socket.join(roomChatId);
     socket.on("CLIENT_SEND_MESSAGE", async (content) => {
       const chat = new Chat({
+        room_chat_id: roomChatId,
         user_id: userId,
-        content: content
+        content: content,
       });
 
       await chat.save();
-
-      io.emit("SERVER_RETURN_MESSAGE", {
+      io.to(roomChatId).emit("SERVER_RETURN_MESSAGE", {
         userId,
         fullName,
         content
@@ -70,7 +72,7 @@ module.exports = (io) => {
     });
 
     socket.on("CLIENT_SEND_TYPING", (type) => {
-      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+      socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {
         userId,
         fullName,
         type
